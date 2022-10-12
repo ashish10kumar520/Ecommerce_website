@@ -38,11 +38,9 @@ public class AdminController {
 	@Autowired
 	private ProductService productService;
 	
-	@RequestMapping("/admin")
-	public ModelAndView adminHome() {
-		ModelAndView modelAndView=new ModelAndView();
-		modelAndView.setViewName("adminHome");
-		return modelAndView;
+	@GetMapping("/admin")
+	public String adminHome() {
+		return "adminHome";
 	}
 	
 	@GetMapping("/admin/categories")

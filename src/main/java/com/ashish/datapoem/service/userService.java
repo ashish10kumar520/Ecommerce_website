@@ -22,4 +22,18 @@ public class userService {
 		return userRepository.findByEmail(email).get();
 	}
 	
+	public Integer getMoneyFromWallet(Integer id) {
+		return userRepository.findwalletById(id);
+	}
+	public void addbalance(Integer id,Integer addedmoney) {
+		User user=userRepository.findById(id).get();
+		user.setWallet(user.getWallet()+addedmoney);
+		userRepository.save(user);
+	}
+	public void balanceAfterPurchase(Integer id,Integer addedmoney) {
+		User user=userRepository.findById(id).get();
+		user.setWallet(addedmoney);
+		userRepository.save(user);
+	}
+	
 }

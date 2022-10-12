@@ -43,43 +43,19 @@ public class LoginController {
 	@Autowired
 	private RoleRepository roleRepository;
 	
-	//@Autowired
-	//private AuthenticationManager authenticationManager;
 	
 	@GetMapping("/login")
 	public String login() {
 		GlobalData.cart.clear();
-		return "login.html";
+		return "login";
 	}
 	
 	@GetMapping("/register")
 	public String registerGet() {
 		return "register";
 	}
-	@PostMapping("/login")
-	public String loginPost(@ModelAttribute("loginrequest") User user,Model model) throws ServletException{
-		System.out.print(user.getEmail());
-		User StringUser=userService.authenticate(user.getEmail());
 		
-		Boolean isAdmin=StringUser.getRoles().contains(1);
-		
-		if(StringUser!=null) {
-			if(isAdmin) {
-				return "/adminHome";
-			}
-			return "/shop";
-		}
-		else {
-			return "/login";
-		}
-		//if(user.getPassword().equals(passString)) {
-			//UsernamePasswordAuthenticationToken authReq= new UsernamePasswordAuthenticationToken(email, password);
-			//Authentication auth = authenticationManager.authenticate(authReq);
-			//SecurityContext sc= SecurityContextHolder.getContext();
-			//sc.setAuthentication(auth);
-			//return "redirect:/";
-		//}
-	}
+	
 	
 	@PostMapping("/register")
 	public String registerPost(@ModelAttribute("user") User user,HttpServletRequest request) throws ServletException{
