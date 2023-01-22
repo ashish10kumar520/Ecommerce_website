@@ -24,7 +24,7 @@ public class Product {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "category_id" ,referencedColumnName = "category_id")
-	private Category category;
+	private int category_id;
 	
 	private double price;
 	
@@ -52,12 +52,14 @@ public class Product {
 		this.name = name;
 	}
 
-	public Category getCategory() {
-		return category;
+	
+
+	public int getCategory_id() {
+		return category_id;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setCategory_id(int category_id) {
+		this.category_id = category_id;
 	}
 
 	public double getPrice() {

@@ -10,11 +10,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.ashish.datapoem.service.CustomUserDetailService;
 
-@SuppressWarnings("deprecation")
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
@@ -35,17 +36,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	                        "/",
 	                        "/shop/**",
 	                        "/register"
-	                    
 	                ).permitAll()
 	                .antMatchers("/admin/**").hasRole("ADMIN")
+	                .anyRequest()
+	                .authenticated()
 	                .and()
 	                .formLogin()
-	                	.permitAll()
-	                	.loginPage("/login")
-	                	.usernameParameter("email")
-	                	.passwordParameter("password")
-	                	.loginProcessingUrl("/login")
-	                	
+	                .loginPage("/login")
+	                .permitAll()
+	                .failureUrl("/login?error=true")
+	                .defaultSuccessUrl("/")
+	                .usernameParameter("email")
+	                .passwordParameter("password")	
 	                .and()
 	                .oauth2Login()
 	                .loginPage("/login")
@@ -65,7 +67,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	        
 	                
 	 }
-	  
+	 	@Bean
+	    BCryptPasswordEncoder bCryptPasswordEncoder(){
+	        return new BCryptPasswordEncoder();
+	    }
 	 	
 	 
 	 @Override
@@ -78,10 +83,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		 web.ignoring().antMatchers("/resources/**, /static/**","/images/**","/productImages/**","/css/**","/js/**"); 
 	 }
 	 
-	 @Bean
-	    @Override
-	    public AuthenticationManager authenticationManagerBean() throws Exception {
-	        return super.authenticationManagerBean();
-	 }
+	 
 
 }
