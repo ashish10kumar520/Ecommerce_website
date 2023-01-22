@@ -37,12 +37,12 @@ public class AdminController {
 	
 	@Autowired
 	private ProductService productService;
-	
+	//heelo people
 	@GetMapping("/admin")
 	public String adminHome() {
 		return "adminHome";
 	}
-	
+	// nice one
 	@GetMapping("/admin/categories")
 	public String getCat(Model model) {
 		model.addAttribute("categories", categoryService.getAllCategory());
