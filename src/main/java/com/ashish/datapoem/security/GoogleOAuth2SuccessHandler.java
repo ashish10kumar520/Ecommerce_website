@@ -27,6 +27,8 @@ public class GoogleOAuth2SuccessHandler implements AuthenticationSuccessHandler{
 	@Autowired
 	private RoleRepository roleRepository;
 	
+	//userRepository
+	//welcome
 	@Autowired
 	private UserRepository userRepository;
 
