@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ashish.datapoem.Entity.Category;
+import com.ashish.datapoem.Entity.CustomerUserDetail;
 import com.ashish.datapoem.Entity.Product;
 import com.ashish.datapoem.Entity.User;
 import com.ashish.datapoem.global.GlobalData;
@@ -24,7 +25,7 @@ import com.ashish.datapoem.service.ProductService;
 import com.ashish.datapoem.service.userService;
 
 import lombok.extern.slf4j.Slf4j;
-
+import org.springframework.security.core.Authentication;
 @Controller
 @Slf4j
 public class CartController {
@@ -66,13 +67,16 @@ public class CartController {
 		Double total=GlobalData.cart.stream().mapToDouble(Product::getPrice).sum();
 		Integer walletmoney=userService.getMoneyFromWallet(user.getId());
 		Double result=(Integer)walletmoney-total;
-		model.addAttribute("balance",result);
-		return "redirect:/checkout";
+		System.out.println(result);
+		model.addAttribute("result",result);
+		return "redirect:/cart";
 	}
 	@RequestMapping(value="/addedmoney",method = RequestMethod.POST)
-	public String postCatAdd(@AuthenticationPrincipal User user,@RequestParam("addedmoney")Integer money) {
-		System.out.print(money);
-		userService.addbalance(user.getId(), money);
+	public String postCatAdd(@RequestParam("addedmoney")Integer money) {
+		CustomerUserDetail principal = (CustomerUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(principal.getId()!=null) {
+			userService.addbalance(principal.getId(), money);
+		}
 		return "redirect:/cart";
 	}
 	

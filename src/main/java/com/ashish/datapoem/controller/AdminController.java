@@ -128,7 +128,7 @@ public class AdminController {
 		ProductDTO productDTO=new ProductDTO();
 		productDTO.setId(product.getId());
 		productDTO.setName(product.getName());
-		productDTO.setCategoryId(product.getCategory().getId());
+		productDTO.setCategoryId(product.getCategory().getId()); 
 		productDTO.setPrice(product.getPrice());
 		productDTO.setWeight(product.getWeight());
 		productDTO.setDescription(product.getDescription());
