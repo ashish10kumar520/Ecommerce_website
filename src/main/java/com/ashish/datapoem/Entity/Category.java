@@ -15,10 +15,10 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="category_id")
     private Integer id;
-	
+	// hello
 	@Column(name ="name")
 	private String name;
-	
+	//new comment
 	public Integer getId() {
 		return id;
 	}
